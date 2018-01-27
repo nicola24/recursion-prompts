@@ -12,11 +12,24 @@ var factorial = function(n) {
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+  // store result
+  var result = 0;
+  //copy of input array
+  var newArr = array.slice()
+  // keep going til length of array is 0
+  if (newArr.length !== 0) {
+    // add last idex of array to result
+    result += newArr.pop();
+    //call the function
+    result += sum(newArr);
+   }
+  return result;
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+
 };
 
 // 4. Check if a number is even.
@@ -184,8 +197,25 @@ var nestedEvenSum = function(obj) {
 
 // 30. Flatten an array containing nested arrays.
 // flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
+//i = nested array
+//o = array
 var flatten = function(array) {
+  // store result
+  var result = [];
+
+  //loop thru array
+  for (var i = 0; i < array.length; i++) {
+    //if index is not an array
+    if (!Array.isArray(array[i])) {
+      // push it to result
+      result.push(array[i]);
+    }
+    // else call flatten, pass in index array + merge it to result
+    result = result.concat(flatten(array[i]));
+  }
+  return result;
 };
+
 
 // 31. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {p:1, o:2, t:2, a:1}
