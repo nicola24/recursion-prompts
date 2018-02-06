@@ -6,12 +6,18 @@
 // denoted by n!, is the product of all positive integers less than or equal to n.
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
-var factorial = function(n) {
+var factorial = (n) => {
+    // If the number is less than 0, reject it.
+    if (n < 0) return null;
+    // If the number is 0, its factorial is 1.
+    if (n == 0) return 1;
+    // Otherwise, call this recursive procedure again.
+    return (n * factorial(n - 1));
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
-var sum = function(array) {
+var sum = (array) => {
   // store result
   var result = 0;
   //copy of input array
@@ -28,8 +34,16 @@ var sum = function(array) {
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
-var arraySum = function(array) {
+var arraySum = (array) => {
+  var result = 0;
 
+  for (var i = 0; i < array.length; i++) {
+    if (!Array.isArray(array[i])) {
+      result += array[i];
+    }
+    result += arraySum(array[i]);
+  }
+  return result;
 };
 
 // 4. Check if a number is even.
@@ -64,6 +78,7 @@ var powerOfTwo = function(n) {
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  return (string ? reverse(string.slice(1)) + string.charAt(0) : string);
 };
 
 // 10. Write a function that determines if a string is a palindrome.
@@ -106,7 +121,18 @@ var compareStr = function(str1, str2) {
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
+  var result = [];
+
+  var char = str.slice(0, 1);
+    console.log(char);
+
+  result.push(char);
+    console.log(result);
+
+  return result;
 };
+
+console.log(createArray('nicolas'));
 
 // 17. Reverse the order of an array
 var reverseArr = function(array) {
@@ -199,10 +225,9 @@ var nestedEvenSum = function(obj) {
 // flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
 //i = nested array
 //o = array
-var flatten = function(array) {
+var flatten = (array) => {
   // store result
   var result = [];
-
   //loop thru array
   for (var i = 0; i < array.length; i++) {
     //if index is not an array
@@ -215,7 +240,6 @@ var flatten = function(array) {
   }
   return result;
 };
-
 
 // 31. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {p:1, o:2, t:2, a:1}
